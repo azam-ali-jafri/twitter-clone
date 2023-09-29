@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  if (req.method != "POST") return res.status(405).end();
+  if (req.method != "POST") res.status(405).end();
 
   try {
     let { email, username, name, password } = req.body;
@@ -16,9 +16,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       data: { email, username, name, hashedPassword },
     });
 
-    return res.status(200).json(user);
+    res.status(200).json(user);
   } catch (error) {
     console.log(error);
-    return res.status(400).end();
+    res.status(400).end();
   }
 }
